@@ -10,7 +10,7 @@ import {
 } from '../ui/table';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Edit2, MoreHorizontal } from 'lucide-react';
+import { Edit2, MoreHorizontal, Users } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ const CompaniesTable = () => {
   return (
     <div>
       <Table>
-        <TableCaption>A list of your recent registered companies</TableCaption>
+        <TableCaption>A list of your recently registered companies</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Logo</TableHead>
@@ -45,24 +45,30 @@ const CompaniesTable = () => {
             <TableRow key={company._id}>
               <TableCell>
                 <Avatar>
-                  <AvatarImage src={company.logo} />
+                  <AvatarImage src={company.logo} alt={company.name} />
                 </Avatar>
               </TableCell>
-              <TableCell>{company.name}</TableCell>
+              <TableCell className="font-medium">{company.name}</TableCell>
               <TableCell>{company.createdAt?.split('T')[0]}</TableCell>
-              <TableCell className="text-right cursor-pointer">
+              <TableCell className="text-right">
                 <Popover>
-                  <PopoverTrigger>
-                    <MoreHorizontal />
+                  <PopoverTrigger asChild>
+                    <button className="p-2 hover:bg-gray-100 rounded-md">
+                      <MoreHorizontal className="h-5 w-5 text-gray-600" />
+                    </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-32">
+                  <PopoverContent className="w-40 p-2 bg-white shadow-md rounded-md">
                     <div
                       onClick={() => navigate(`/admin/companies/${company._id}`)}
-                      className="flex items-center gap-2 w-fit cursor-pointer"
+                      className="flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 text-sm font-medium text-gray-700"
                     >
-                      <Edit2 className="w-4" />
+                      <Edit2 className="w-4 h-4 text-gray-600" />
                       <span>Edit</span>
                     </div>
+                   
+                     
+                     
+                   
                   </PopoverContent>
                 </Popover>
               </TableCell>
