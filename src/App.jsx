@@ -19,7 +19,7 @@ import CompanySetup from './components/admin/CompanySetup'
 import AdminJobs from './components/admin/AdminJobs'
 import PostJobs from './components/admin/PostJobs'
 import Applicants from './components/admin/Applicants'
-import ProtectedRoute from './components/admin/protectedRoute'
+import ProtectedRoute from './components/admin/ProtectedRoute'
 
 
 
