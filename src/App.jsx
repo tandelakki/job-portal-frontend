@@ -56,7 +56,7 @@ const appRouter = createBrowserRouter([
 
   },
   {
-    path:"/admin/companies",
+    path:"/admin/Companies",
     element:<protectedRoute><Companies/></protectedRoute>
 
   },{
