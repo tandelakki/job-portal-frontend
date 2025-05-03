@@ -44,8 +44,8 @@ const Navbar = () => {
           <ul className="flex gap-6 text-sm font-medium text-gray-700">
             {user && user.role === 'recruiter' ? (
               <>
-                <li><Link to="/admin/companies" className="hover:text-[#6A38C2]">Companies</Link></li>
-                <li><Link to="/admin/jobs" className="hover:text-[#6A38C2]">Jobs</Link></li>
+                <li><Link to="/admin/Companies" className="hover:text-[#6A38C2]">Companies</Link></li>
+                <li><Link to="/admin/Jobs" className="hover:text-[#6A38C2]">Jobs</Link></li>
               </>
             ) : (
               <>

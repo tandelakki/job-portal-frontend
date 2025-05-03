@@ -19,6 +19,7 @@ import CompanySetup from './components/admin/CompanySetup'
 import AdminJobs from './components/admin/AdminJobs'
 import PostJobs from './components/admin/PostJobs'
 import Applicants from './components/admin/Applicants'
+import ProtectedRoute from './components/admin/protectedRoute'
 
 
 
@@ -57,31 +58,31 @@ const appRouter = createBrowserRouter([
   },
   {
     path:"/admin/Companies",
-    element:<protectedRoute><Companies/></protectedRoute>
+    element:<ProtectedRoute><Companies/></ProtectedRoute>
 
   },{
     path:"/admin/Companies/create",
-    element:<protectedRoute><CompanyCreate/></protectedRoute>
+    element:<ProtectedRoute><CompanyCreate/></ProtectedRoute>
 
   }
   ,{
     path:"/admin/Companies/:id",
-    element:<protectedRoute><CompanySetup/></protectedRoute>
+    element:<ProtectedRoute><CompanySetup/></ProtectedRoute>
 
   }
   ,{
-    path:"/admin/jobs",
-    element:<protectedRoute><AdminJobs/></protectedRoute>
+    path:"/admin/Jobs",
+    element:<ProtectedRoute><AdminJobs/></ProtectedRoute>
 
   }
   ,{
     path:"/admin/jobs/create",
-    element:<protectedRoute><PostJobs/></protectedRoute>
+    element:<ProtectedRoute><PostJobs/></ProtectedRoute>
 
   },
   {
     path:"/admin/jobs/:id/applicants",
-    element:<protectedRoute><Applicants/></protectedRoute>
+    element:<ProtectedRoute><Applicants/></ProtectedRoute>
 
   }
 ])
