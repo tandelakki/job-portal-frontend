@@ -8,7 +8,7 @@ import Signup from './components/auth/Signup'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import Home from './components/home'
+import Home from './components/Home'
 import Jobs from './components/Jobs'
 
 import Profile from './components/Profile'
