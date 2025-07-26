@@ -22,8 +22,12 @@ const AdminJobs = () => {
     }, [input])
 
     return (
-        <div className="bg-gray-100 min-h-screen py-10">
+        
+
+        
+        <div className="bg-gray-100 min-h-screen py-0">
             <Navbar />
+            
             <div className="max-w-7xl mx-auto px-4 mt-10">
                 <div className="bg-white shadow-md rounded-lg p-6 flex flex-col md:flex-row items-center justify-between">
                     {/* Search Bar */}

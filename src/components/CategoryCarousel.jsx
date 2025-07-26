@@ -26,7 +26,7 @@ const CategoryCarousel = () => {
 
   const searchJobHandler = (query) => {
     dispatch(setSearchedQuery(query));
-    navigate('/browse');
+    navigate('/Jobs');
   };
   
   

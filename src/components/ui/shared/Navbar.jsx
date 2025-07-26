@@ -4,7 +4,7 @@ import { Popover, PopoverContent } from '../popover'
 import { Avatar, AvatarImage } from '../avatar'
 import { Button } from '../button'
 import { LogOut, User2 } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { toast } from 'sonner'
@@ -31,27 +31,30 @@ const Navbar = () => {
     }
   }
 
+  const navLinkClass = ({ isActive }) =>
+    `relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-[#6A38C2] after:transition-all after:duration-300
+     ${isActive ? 'text-[#6A38C2] after:w-full' : 'text-gray-700 after:w-0 hover:after:w-full'} px-2 py-1 transition`;
+
   return (
     <div className="sticky top-0 left-0 w-full bg-white z-30 shadow-md backdrop-blur-md transition-all duration-300">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-bold text-gray-800">
+        <NavLink to="/" className="text-2xl font-bold text-gray-800">
           job<span className="text-[#f83002]">portal</span>
-        </Link>
+        </NavLink>
 
         {/* Navigation */}
         <div className="flex items-center gap-6">
-          <ul className="flex gap-6 text-sm font-medium text-gray-700">
+          <ul className="flex gap-6 text-sm font-medium">
             {user && user.role === 'recruiter' ? (
               <>
-                <li><Link to="/admin/Companies" className="hover:text-[#6A38C2]">Companies</Link></li>
-                <li><Link to="/admin/Jobs" className="hover:text-[#6A38C2]">Jobs</Link></li>
+                <li><NavLink to="/admin/Companies" className={navLinkClass}>Companies</NavLink></li>
+                <li><NavLink to="/admin/Jobs" className={navLinkClass}>Jobs</NavLink></li>
               </>
             ) : (
               <>
-                <li><Link to="/" className="hover:text-[#6A38C2]">Home</Link></li>
-                <li><Link to="/jobs" className="hover:text-[#6A38C2]">Jobs</Link></li>
-               {/* <li><Link to="/browse" className="hover:text-[#6A38C2]">Browse</Link></li> */}
+                <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
+                <li><NavLink to="/jobs" className={navLinkClass}>Jobs</NavLink></li>
               </>
             )}
           </ul>
@@ -59,12 +62,28 @@ const Navbar = () => {
           {/* Auth Buttons */}
           {!user ? (
             <div className="flex gap-3">
-              <Link to="/login">
-                <Button variant="outline" className="border-[#6A38C2] text-[#6A38C2] hover:bg-[#f1eaff]">Login</Button>
-              </Link>
-              <Link to="/signup">
-                <Button className="bg-[#6A38C2] hover:bg-[#5b38a6] text-white">Sign Up</Button>
-              </Link>
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  `relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-[#6A38C2] 
+                   ${isActive ? 'after:w-full' : 'after:w-0 hover:after:w-full'}`
+                }
+              >
+                <Button className="cursor-pointer">
+                  Login
+                </Button>
+              </NavLink>
+              <NavLink
+                to="/signup"
+                className={({ isActive }) =>
+                  `relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-[#6A38C2] 
+                   ${isActive ? 'after:w-full' : 'after:w-0 hover:after:w-full'}`
+                }
+              >
+                <Button className="cursor-pointer">
+                  Sign Up
+                </Button>
+              </NavLink>
             </div>
           ) : (
             <Popover>
@@ -92,13 +111,13 @@ const Navbar = () => {
 
                 <div className="space-y-2">
                   {user.role === "student" && (
-                    <Link
+                    <NavLink
                       to="/profile"
                       className="flex items-center gap-2 hover:bg-gray-100 p-2 rounded-md transition"
                     >
                       <User2 className="text-gray-600 w-4 h-4" />
                       <span className="text-sm text-gray-800">View Profile</span>
-                    </Link>
+                    </NavLink>
                   )}
                   <button
                     onClick={logOutHandler}

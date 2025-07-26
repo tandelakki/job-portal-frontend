@@ -1,31 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from './ui/shared/Navbar'
-import FilterCard from './FilterCard'
-import Job from './Job'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import Navbar from './ui/shared/Navbar';
+import FilterCard from './FilterCard';
+import Job from './Job';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Jobs = () => {
-  const { allJobs, searchedQuery } = useSelector((state) => state.job)
-  const [filterJobs, setFilterJobs] = useState([])
+  const { allJobs, searchedQuery } = useSelector((state) => state.job);
+  const [filterJobs, setFilterJobs] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (searchedQuery) {
+    if (searchedQuery && typeof searchedQuery === 'object') {
       const filteredJobs = allJobs.filter((job) => {
-        return (
-          job?.title?.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-          job?.description?.name?.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-          job?.location?.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-          job?.company?.name?.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-          job?.jobType?.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-          job?.salary?.toString().toLowerCase().includes(searchedQuery.toLowerCase())
-        )
-      })
+        const {
+          location,
+          jobType,
+          experience,
+          salary,
+        } = searchedQuery;
 
-      setFilterJobs(filteredJobs)
+        return (
+          (!location || job.location?.toLowerCase() === location.toLowerCase()) &&
+          (!jobType || job.jobType?.toLowerCase() === jobType.toLowerCase()) &&
+          (!experience || parseInt(job.experience) >= parseInt(experience)) &&
+          (!salary || parseInt(job.salary) >= parseInt(salary))
+        );
+      });
+
+      setFilterJobs(filteredJobs);
     } else {
-      setFilterJobs(allJobs)
+      setFilterJobs(allJobs);
     }
-  }, [allJobs, searchedQuery])
+  }, [allJobs, searchedQuery]);
+
+  const handleJobClick = (jobId) => {
+    navigate(`/jobs/description/${jobId}`);
+  };
 
   return (
     <div>
@@ -44,7 +55,11 @@ const Jobs = () => {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {filterJobs.map((job) => (
-                  <div key={job?._id}>
+                  <div
+                    key={job._id}
+                    onClick={() => handleJobClick(job._id)}
+                    className="cursor-pointer rounded-lg hover:shadow-lg transition-shadow"
+                  >
                     <Job job={job} />
                   </div>
                 ))}
@@ -54,7 +69,7 @@ const Jobs = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Jobs
+export default Jobs;

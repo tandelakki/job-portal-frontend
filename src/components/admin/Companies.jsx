@@ -19,7 +19,7 @@ const Companies = () => {
     }, [input])
 
     return (
-        <div className="bg-gray-100 min-h-screen py-10">
+        <div className="bg-gray-100 min-h-screen py-0">
             <Navbar />
             <div className="max-w-7xl mx-auto px-4 mt-10">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-white p-4 rounded-lg shadow">

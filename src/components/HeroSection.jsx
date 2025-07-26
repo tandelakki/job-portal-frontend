@@ -1,8 +1,8 @@
-import { setSearchedQuery } from "@/redux/jobSlice";
-import { Search } from "lucide-react";
 import React, { useState } from "react";
+import { Search } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setSearchedQuery } from "@/redux/jobSlice";
 
 const HeroSection = () => {
   const [query, setQuery] = useState("");
@@ -10,15 +10,13 @@ const HeroSection = () => {
   const navigate = useNavigate();
 
   const searchJobHandler = () => {
-    dispatch(setSearchedQuery(query));
-    navigate("/browse");
+    if (query.trim() === "") return; // optional: prevent empty searches
+    dispatch(setSearchedQuery(query.trim()));
+    navigate("/jobs");
   };
 
   return (
     <div className="bg-[#f5f7fa] py-20 px-4 md:px-10 text-center relative overflow-hidden">
-      {/* Background Shape (optional) */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#e0ecff] to-[#f5f7fa] -z-10"></div>
-
       <div className="max-w-5xl mx-auto">
         <span className="inline-block px-6 py-2 rounded-full bg-white shadow text-[#F83002] text-lg font-semibold mb-4">
           India’s No. 1 Job Portal
@@ -33,19 +31,28 @@ const HeroSection = () => {
         </p>
 
         {/* Search Bar */}
-        <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-4">
+        <div className="mt-8 relative max-w-3xl mx-auto">
           <input
             type="text"
             placeholder="Search job title or keywords"
+            value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full md:w-[400px] px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6A38C2]"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                searchJobHandler();
+              }
+            }}
+            className="w-full h-14 pl-4 pr-32 rounded-lg border border-gray-300 shadow-sm text-gray-900 text-base focus:outline-none focus:ring-2 focus:ring-[#6A38C2]"
           />
+
           <button
             onClick={searchJobHandler}
-            className="flex items-center gap-2 px-6 py-3 bg-[#6A38C2] text-white rounded-lg hover:bg-[#5530a0] transition"
+            className="absolute right-1 top-1/2 -translate-y-1/2 bg-[#6A38C2] hover:bg-[#5530a0] text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors duration-200 uppercase tracking-wide"
           >
-            <Search className="h-5 w-5" />
-            <span>Search</span>
+            <div className="flex items-center gap-2">
+              <Search className="w-5 h-5" />
+              <span>Search</span>
+            </div>
           </button>
         </div>
       </div>

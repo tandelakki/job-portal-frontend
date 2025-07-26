@@ -74,6 +74,11 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     }
 
     try {
+      if (!input.fullname || !input.email || !input.phoneNumber || !input.bio || !input.skills) {
+  toast.error("Please fill in all required fields");
+  return;
+}
+
       setLoading(true);
       const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData, {
         headers: {
@@ -85,6 +90,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
       if (res.data.success) {
         dispatch(setUser(res.data.user));
         toast.success("Profile updated successfully");
+        setOpen(false);
       }
 
     } catch (error) {
@@ -92,7 +98,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
       toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
-      setOpen(false);
+      
     }
   }
 
