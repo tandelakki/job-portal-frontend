@@ -32,7 +32,7 @@ const Login = () => {
     e.preventDefault();
     try {
       dispatch(setLoading(true));
-      const backendUrl = "http://localhost:8000/api/v1/user/login";
+      const backendUrl = "https://job-portal-backend-1-grrb.onrender.com/api/v1/user/login";
 
       const res = await axios.post(backendUrl, input, {
         headers: { 'Content-Type': 'application/json' },
