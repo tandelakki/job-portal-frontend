@@ -16,7 +16,7 @@ const Navbar = () => {
   const navigate = useNavigate()
 
   const logOutHandler = async () => {
-    const logoutUrl = "http://localhost:8000/api/v1/user/logout"
+    const logoutUrl = "https://job-portal-backend-1-grrb.onrender.com/api/v1/user/logout"
 
     try {
       const res = await axios.get(logoutUrl, { withCredentials: true })
